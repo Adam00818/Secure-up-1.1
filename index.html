@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar mi Ubicación por WhatsApp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #FFA500; /* Fondo color naranja */
+            color: white;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 400px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .whatsapp-btn {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            color: white;
+        }
+        .whatsapp-btn:hover {
+            background: linear-gradient(45deg, #128c7e, #25d366);
+            transform: translateY(-4px);
+        }
+        button:active {
+            transform: translateY(2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Enviar mi Ubicación</h1>
+        <button class="whatsapp-btn" onclick="enviarUbicacion()">Enviar Ubicación a WhatsApp</button>
+    </div>
+
+    <script>
+        function enviarUbicacion() {
+            if (navigator.geolocation) {
+                // Obtener la ubicación del usuario
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    // Crear el enlace para WhatsApp con la ubicación
+                    const mensaje = `Mi ubicación es: https://www.google.com/maps?q=${lat},${lon}`;
+                    
+                    // Aquí puedes poner el número de teléfono al que deseas enviar la ubicación
+                    const numeroWhatsApp = "+51969334494"; // 
+                    
+                    // Redirigir a WhatsApp con el mensaje y la ubicación
+                    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+                    window.open(url, '_blank');
+                }, function(error) {
+                    alert("No se pudo obtener la ubicación. Inténtalo nuevamente.");
+                });
+            } else {
+                alert("La geolocalización no está soportada por tu navegador.");
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+
